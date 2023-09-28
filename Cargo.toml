@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = [
+	"rpr-proto",
+	"rpr-server"
+]
