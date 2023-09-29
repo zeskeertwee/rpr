@@ -2,5 +2,6 @@
 resolver = "2"
 members = [
 	"rpr-proto",
-	"rpr-server"
+	"rpr-server",
+	"rpr-test-client"
 ]
