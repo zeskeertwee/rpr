@@ -10,15 +10,20 @@ const KEY: &'static str = "ZfAr2p3QdzAasrBNkNH540kGbxu62KTF5uSerJGfx/tZ2P6vqK6HJ
 
 fn main() -> Result<()> {
     std::panic::set_hook(Box::new(move |info| {
-        submit_backtrace(info).unwrap();
+        match submit_backtrace(info) {
+            Ok(_) => (),
+            Err(e) => {
+                println!("An error occured whilst submitting the report: {}", e);
+            }
+        }
     }));
 
     panic!("uh oh");
 }
 
 fn submit_backtrace(info: &PanicInfo) -> Result<()> {
-    println!("Connecting to 127.0.0.1:9001");
-    let mut stream = TcpStream::connect("127.0.0.1:9001")?;
+    println!("Connecting to server");
+    let mut stream = TcpStream::connect("fortunecookie.duckdns.org:9001")?;
 
     rpr_proto::send_message(&mut stream, ClientMessage::RequestConnection {
         application_id: [41, 54, 52, 41, 50, 49]

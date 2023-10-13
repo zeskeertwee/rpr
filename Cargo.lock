@@ -402,6 +402,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dbb5fb1acd8a1a18b3dd5be62d25485eb770e05afb408a9627d14d451bae12da"
 
 [[package]]
+name = "rpr"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "rpr-proto",
+ "text_io",
+ "uuid",
+]
+
+[[package]]
 name = "rpr-proto"
 version = "0.1.0"
 dependencies = [
@@ -537,6 +547,12 @@ checksum = "6093bad37da69aab9d123a8091e4be0aa4a03e4d601ec641c327398315f62b64"
 dependencies = [
  "winapi-util",
 ]
+
+[[package]]
+name = "text_io"
+version = "0.1.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d5f0c8eb2ad70c12a6a69508f499b3051c924f4b1cfeae85bfad96e6bc5bba46"
 
 [[package]]
 name = "toml"

@@ -6,6 +6,7 @@ use std::panic::PanicInfo;
 const HEX_WIDTH: usize = std::mem::size_of::<usize>() + 2;
 const NEXT_SYMBOL_PADDING: usize = HEX_WIDTH + 6;
 
+// based on handle_dump in https://github.com/rust-cli/human-panic
 pub fn generate_report(info: &PanicInfo) -> String {
     let mut report: Vec<String> = vec![];
 

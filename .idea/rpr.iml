@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/rpr-proto/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/rpr-server/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/rpr-test-client/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rpr/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

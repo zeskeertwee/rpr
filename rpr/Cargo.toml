@@ -1,0 +1,18 @@
+[package]
+name = "rpr"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+uuid = "1.4.1"
+text_io = "0.1.12"
+
+[[bin]]
+path = "./src/bin.rs"
+name = "bin"
+
+[dependencies.rpr-proto]
+path = "../rpr-proto"

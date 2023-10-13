@@ -10,7 +10,7 @@ use uuid::Uuid;
 use rpr_proto::{ClientMessage, ServerMessage};
 use std::fs::File;
 
-mod application;
+pub mod application;
 
 const VERSION: u8 = 1;
 
@@ -32,7 +32,10 @@ fn main() -> Result<()> {
     info!("Binding TCP listener to 0.0.0.0:9001");
     let listener = TcpListener::bind("0.0.0.0:9001")?;
     for i in listener.incoming() {
-        handle_connection(i?, &applications, &report_path)?;
+        match handle_connection(i?, &applications, &report_path) {
+            Ok(_) => (),
+            Err(e) => log::warn!("Connection handling failed with error: {}", e),
+        }
     }
 
     Ok(())
@@ -102,6 +105,13 @@ fn handle_connection(mut stream: TcpStream, appdefs: &HashMap<[u8; 6], Applicati
             report_hash
         } => {
             trace!("Receiving {}KiB report from {}, CRC32 {}", report_size / 1024, peer_addr, report_hash);
+            if report_size > 1024 * 64 {
+                // too big
+                error!("Report from {} too big, terminating connection", peer_addr);
+                stream.shutdown(Shutdown::Both)?;
+                return Ok(());
+            }
+            
             let mut buf = vec![0; report_size as usize];
             stream.read_exact(&mut buf)?;
             if !(rpr_proto::compute_hash(&buf) == report_hash) {
