@@ -117,6 +117,4 @@ fn panic_handler(info: &PanicInfo, app_id: [u8; 6], shared_key: String) -> anyho
             }
         }
     }
-
-    Ok(())
 }
