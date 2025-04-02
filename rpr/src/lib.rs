@@ -56,7 +56,8 @@ fn panic_handler(info: &PanicInfo, cfg: &Configuration) -> anyhow::Result<()> {
         print!("crash-reporter > ");
         let cmd: String = read!("{}\n");
 
-        match cmd.to_lowercase().as_str() {
+        // trim to fix windows \r stuff
+        match cmd.trim_matches('\r').to_lowercase().as_str() {
             "n" | "q" | "quit" | "exit" => {
                 println!("Exiting...");
                 std::process::exit(-1);
