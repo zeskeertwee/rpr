@@ -1,8 +1,6 @@
-#![feature(ascii_char)]
-
 use std::io::Write;
 use std::net::{Shutdown, TcpStream};
-use std::panic::PanicInfo;
+use std::panic::PanicHookInfo;
 use std::sync::Arc;
 use text_io::read;
 use uuid::Uuid;
@@ -40,7 +38,7 @@ pub fn initialize(cfg: Configuration) {
     }))
 }
 
-fn panic_handler(info: &PanicInfo, cfg: &Configuration) -> anyhow::Result<()> {
+fn panic_handler(info: &PanicHookInfo, cfg: &Configuration) -> anyhow::Result<()> {
     let report = rpr_proto::generate_report(info);
 
     if cfg.interactive {
@@ -69,7 +67,7 @@ fn panic_handler(info: &PanicInfo, cfg: &Configuration) -> anyhow::Result<()> {
                 println!("Configuration:");
                 println!("Server address: {}", cfg.address);
                 println!("Fallback address: {} [In use: {}]", cfg.fallback_address, cfg.use_fallback);
-                println!("Application ID: {}", cfg.app_id.as_ascii().map(|v| v.into_iter().map(|c| c.to_char()).collect::<String>()).unwrap_or(format!("{:?}", cfg.app_id)));
+                println!("Application ID: {}", String::from_utf8_lossy(&cfg.app_id));
             }
             "v" => {
                 println!(" --- CRASH REPORT ---");
